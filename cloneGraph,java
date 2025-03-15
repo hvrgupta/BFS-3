@@ -1,0 +1,32 @@
+// Time Complexity : O(V+E)
+// Space Complexity : O(V)
+// Did this code successfully run on Leetcode : Yes
+// Any problem you faced while coding this : No
+
+class Solution {
+    HashMap<Node,Node> map;
+    public Node cloneGraph(Node node) {
+
+        if(node == null) return node;
+
+        map = new HashMap<>();
+        return dfs(node);
+    }
+
+    private Node dfs(Node node) {
+
+        if(map.containsKey(node)){
+            return map.get(node);
+        }
+
+        Node clone = new Node(node.val);
+        map.put(node,clone);
+
+        for(Node n: node.neighbors) {
+            Node cloneNeighbour = dfs(n);
+            clone.neighbors.add(cloneNeighbour);
+        }
+
+        return clone;
+    }
+}
